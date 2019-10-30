@@ -1,0 +1,17 @@
+## Interface: 11302
+## Title: Pulse
+## Version: 1
+## Notes: Take the Pulse
+## Author: Drogos
+## SavedVariables: Pulse
+## DefaultState: enabled
+
+plugin\textbox.lua
+init.lua
+module\dkp.lua
+module\inventory.lua
+module\quests.lua
+module\skills.lua
+module\spells.lua
+module\talents.lua
+pulse.lua
