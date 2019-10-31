@@ -1,11 +1,10 @@
 
-local frame = CreateFrame('Frame');
 local realm = GetRealmName();
 local char = UnitName('player');
 
 function updateInventory (bagId)
-	if (Pulse[realm][char]['inventory'] == nil) then
-		Pulse[realm][char]['inventory'] = {};
+	if (Pulse.realm[realm].char[char].inventory == nil) then
+		Pulse.realm[realm].char[char].inventory = {};
 	end
 
 	local bagName = GetBagName(bagId);
@@ -14,9 +13,9 @@ function updateInventory (bagId)
 		bagName = 'Bank';
 	end
 
-	Pulse[realm][char]['inventory'][bagId] = {};
-	Pulse[realm][char]['inventory'][bagId].name = bagName;
-	Pulse[realm][char]['inventory'][bagId].contents = {};
+	Pulse.realm[realm].char[char].inventory[bagId] = {};
+	Pulse.realm[realm].char[char].inventory[bagId].name = bagName;
+	Pulse.realm[realm].char[char].inventory[bagId].inventory = {};
 
 	local numSlots = GetContainerNumSlots(bagId);
 	for i = 1, numSlots do
@@ -33,15 +32,7 @@ function updateInventory (bagId)
 		temp.noValue = noValue;
 		temp.itemID = itemID;
 
-		tinsert(Pulse[realm][char]['inventory'][bagId]['contents'], temp);
+		tinsert(Pulse.realm[realm].char[char].inventory[bagId].inventory, temp);
 	end
 
 end
-
-frame:RegisterEvent('BAG_UPDATE');
-frame:RegisterEvent('ITEM_UNLOCKED');
-frame:SetScript('OnEvent', function (self, event, bagId)
-	-- if (event == 'BAG_UPDATE') then
-		updateInventory(bagId);
-	-- end
-end);

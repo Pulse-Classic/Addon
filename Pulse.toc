@@ -11,7 +11,7 @@ init.lua
 module\dkp.lua
 module\inventory.lua
 module\quests.lua
-module\skills.lua
+module\tradeskills.lua
 module\spells.lua
 module\talents.lua
 pulse.lua
