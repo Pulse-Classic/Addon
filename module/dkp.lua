@@ -1,8 +1,4 @@
 
-local frame = CreateFrame('Frame');
-local realm = GetRealmName();
-local char = UnitName('player');
-
 local temp = {};
 local GFORMAT = "$index $name $rank";
 

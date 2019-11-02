@@ -1,6 +1,17 @@
 Changelog
 =========
 
+v 3
+---
+
+### Bugfixes
+* Fixed a bug where only last viewed tradeskills was stored.
+
+### New Features
+* Added character information.
+* Added Skills.
+
+
 v 2
 ---
 

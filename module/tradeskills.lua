@@ -2,8 +2,7 @@
 local realm = GetRealmName();
 local char = UnitName('player');
 
-function updateSkills ()
-	Pulse.realm[realm].char[char].tradeskills = {};
+function updateTradeskills ()
 
 	local hasFilter = false;
 
@@ -20,7 +19,6 @@ function updateSkills ()
 		end
 	end
 
-	local header = 'undefined';
 	local numTradeSkills = GetNumTradeSkills();
 	if (numTradeSkills ~= 0) then
 		for i = 1, numTradeSkills do
@@ -33,26 +31,34 @@ function updateSkills ()
 		end
 
 		if (hasFilter == false) then
-			for i = 1, numTradeSkills do
-				local skillName, skillType, numAvailable, isExpanded, altVerb, numSkillUps = GetTradeSkillInfo(i);
+			local header = 'undefined';
+			local tradeskillName, currentLevel, maxLevel = GetTradeSkillLine();
+			Pulse.realm[realm].char[char].tradeskills = {};
+			if ((tradeskillName ~= nil) and (tradeskillName ~= '')) then
 
-				if (skillType == 'header') then
-					header = skillName;
-				else
-					local temp = {};
-					temp.skillName = skillName;
-					temp.skillName = skillName;
-					temp.skillType = skillType;
-					temp.numAvailable = numAvailable;
-					temp.isExpanded = isExpanded;
-					temp.altVerb = altVerb;
-					temp.numSkillUps = numSkillUps;
+				if (Pulse.realm[realm].char[char].tradeskills[tradeskillName] == nil) then
+					Pulse.realm[realm].char[char].tradeskills[tradeskillName] = {};
+				end
 
-					if (Pulse.realm[realm].char[char].tradeskills[header] == nil) then
-						Pulse.realm[realm].char[char].tradeskills[header] = {};
+				for i = 1, numTradeSkills do
+					local skillName, skillType, numAvailable, isExpanded, altVerb, numSkillUps = GetTradeSkillInfo(i);
+
+					if (skillType == 'header') then
+						header = skillName;
+					else
+						local temp = {};
+						temp.skillName = skillName;
+						temp.skillType = skillType;
+						temp.numAvailable = numAvailable;
+						temp.altVerb = altVerb;
+						temp.numSkillUps = numSkillUps;
+
+						if (Pulse.realm[realm].char[char].tradeskills[tradeskillName][header] == nil) then
+							Pulse.realm[realm].char[char].tradeskills[tradeskillName][header] = {};
+						end
+
+						tinsert(Pulse.realm[realm].char[char].tradeskills[tradeskillName][header], temp);
 					end
-
-					tinsert(Pulse.realm[realm].char[char].tradeskills[header], temp);
 				end
 			end
 		end
