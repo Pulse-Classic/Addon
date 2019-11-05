@@ -33,12 +33,12 @@ function updateTradeskills ()
 		if (hasFilter == false) then
 			local header = 'undefined';
 			local tradeskillName, currentLevel, maxLevel = GetTradeSkillLine();
-			Pulse.realm[realm].char[char].tradeskills = {};
+			if (Pulse.realm[realm].char[char].tradeskills == nil) then
+				Pulse.realm[realm].char[char].tradeskills = {};
+			end
 			if ((tradeskillName ~= nil) and (tradeskillName ~= '')) then
 
-				if (Pulse.realm[realm].char[char].tradeskills[tradeskillName] == nil) then
-					Pulse.realm[realm].char[char].tradeskills[tradeskillName] = {};
-				end
+				Pulse.realm[realm].char[char].tradeskills[tradeskillName] = {};
 
 				for i = 1, numTradeSkills do
 					local skillName, skillType, numAvailable, isExpanded, altVerb, numSkillUps = GetTradeSkillInfo(i);

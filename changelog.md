@@ -1,6 +1,13 @@
 Changelog
 =========
 
+v 3.1
+---
+
+### Bugfixes
+* Fixed a bug where guild information was not always stored.
+
+
 v 3
 ---
 

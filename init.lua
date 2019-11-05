@@ -3,6 +3,8 @@ local frame = CreateFrame('Frame');
 local realm = GetRealmName();
 local char = UnitName('player');
 
+local guildRosterReady = false;
+
 function initPulse ()
 	if ((Pulse == nil) or (Pulse.version < 3)) then
 		Pulse = {};
@@ -20,7 +22,7 @@ function initPulse ()
 		Pulse.realm[realm].char[char] = {};
 	end
 
-	Pulse.version = 3;
+	Pulse.version = 3.1;
 end
 
 frame:RegisterEvent('PLAYER_LOGIN');
@@ -39,6 +41,7 @@ frame:SetScript('OnEvent', function (self, event, ...)
 		frame:RegisterEvent('PLAYER_XP_UPDATE');
 		frame:RegisterEvent('PLAYER_UPDATE_RESTING');
 		frame:RegisterEvent('PLAYER_MONEY');
+		frame:RegisterEvent('GUILD_ROSTER_UPDATE');
 
 		frame:SetScript('OnEvent', function (self, event, bagId)
 			if (event == 'BAG_UPDATE') then
@@ -62,19 +65,22 @@ frame:SetScript('OnEvent', function (self, event, ...)
 			if (event == 'SKILL_LINES_CHANGED') then
 				updateSkills();
 			end
-			if (event == 'PLAYER_XP_UPDATE') then
+			if ((guildRosterReady) and (event == 'PLAYER_XP_UPDATE')) then
 				updateCharacter();
 			end
-			if (event == 'PLAYER_UPDATE_RESTING') then
+			if ((guildRosterReady) and (event == 'PLAYER_UPDATE_RESTING')) then
 				updateCharacter();
 			end
-			if (event == 'PLAYER_MONEY') then
+			if ((guildRosterReady) and (event == 'PLAYER_MONEY')) then
+				updateCharacter();
+			end
+			if (event == 'GUILD_ROSTER_UPDATE') then
+				guildRosterReady = true;
 				updateCharacter();
 			end
 		end);
 
 		updateTalents();
 		updateSkills();
-		updateCharacter();
 	end
 end);
