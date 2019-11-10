@@ -3,8 +3,6 @@ local frame = CreateFrame('Frame');
 local realm = GetRealmName();
 local char = UnitName('player');
 
-local guildRosterReady = false;
-
 function initPulse ()
 	if ((Pulse == nil) or (Pulse.version < 3)) then
 		Pulse = {};
@@ -22,7 +20,7 @@ function initPulse ()
 		Pulse.realm[realm].char[char] = {};
 	end
 
-	Pulse.version = 3.1;
+	Pulse.version = 3.2;
 end
 
 frame:RegisterEvent('PLAYER_LOGIN');
@@ -35,6 +33,8 @@ frame:SetScript('OnEvent', function (self, event, ...)
 		frame:RegisterEvent('ITEM_UNLOCKED');
 		frame:RegisterEvent('QUEST_LOG_UPDATE');
 		frame:RegisterEvent('TRADE_SKILL_SHOW');
+		frame:RegisterEvent('TRADE_SKILL_CLOSE');
+		frame:RegisterEvent('CRAFT_UPDATE');
 		frame:RegisterEvent('SPELLS_CHANGED');
 		frame:RegisterEvent('CHARACTER_POINTS_CHANGED');
 		frame:RegisterEvent('SKILL_LINES_CHANGED');
@@ -54,7 +54,13 @@ frame:SetScript('OnEvent', function (self, event, ...)
 				updateQuests();
 			end
 			if (event == 'TRADE_SKILL_SHOW') then
-				updateTradeskills();
+				loadTradeskills();
+			end
+			if (event == 'TRADE_SKILL_CLOSE') then
+				saveTradeskills();
+			end
+			if (event == 'CRAFT_UPDATE') then
+				updateEnchanting();
 			end
 			if (event == 'SPELLS_CHANGED') then
 				updateSpells();
@@ -65,17 +71,16 @@ frame:SetScript('OnEvent', function (self, event, ...)
 			if (event == 'SKILL_LINES_CHANGED') then
 				updateSkills();
 			end
-			if ((guildRosterReady) and (event == 'PLAYER_XP_UPDATE')) then
+			if (event == 'PLAYER_XP_UPDATE') then
 				updateCharacter();
 			end
-			if ((guildRosterReady) and (event == 'PLAYER_UPDATE_RESTING')) then
+			if (event == 'PLAYER_UPDATE_RESTING') then
 				updateCharacter();
 			end
-			if ((guildRosterReady) and (event == 'PLAYER_MONEY')) then
+			if (event == 'PLAYER_MONEY') then
 				updateCharacter();
 			end
 			if (event == 'GUILD_ROSTER_UPDATE') then
-				guildRosterReady = true;
 				updateCharacter();
 			end
 		end);

@@ -2,7 +2,14 @@
 local realm = GetRealmName();
 local char = UnitName('player');
 
-function updateTradeskills ()
+local tradeskillcache = nil;
+
+function loadTradeskills ()
+	local tradeskillName, currentLevel, maxLevel = GetTradeSkillLine();
+	tradeskillcache = tradeskillName;
+end
+
+function saveTradeskills ()
 
 	local hasFilter = false;
 
@@ -21,6 +28,7 @@ function updateTradeskills ()
 
 	local numTradeSkills = GetNumTradeSkills();
 	if (numTradeSkills ~= 0) then
+
 		for i = 1, numTradeSkills do
 			local skillName, skillType, numAvailable, isExpanded, altVerb, numSkillUps = GetTradeSkillInfo(i);
 			if (skillType == 'header') then
@@ -31,33 +39,35 @@ function updateTradeskills ()
 		end
 
 		if (hasFilter == false) then
-			local header = 'undefined';
-			local tradeskillName, currentLevel, maxLevel = GetTradeSkillLine();
 			if (Pulse.realm[realm].char[char].tradeskills == nil) then
 				Pulse.realm[realm].char[char].tradeskills = {};
 			end
-			if ((tradeskillName ~= nil) and (tradeskillName ~= '')) then
+			if ((tradeskillcache ~= nil) and (tradeskillcache ~= '') and (tradeskillcache ~= 'UNKNOWN')) then
+				local header = nil;
+				local skillName, skillType, numAvailable, isExpanded, altVerb, numSkillUps = GetTradeSkillInfo(1);
 
-				Pulse.realm[realm].char[char].tradeskills[tradeskillName] = {};
+				if ((skillName ~= nil) and (skillType == 'header')) then
+					Pulse.realm[realm].char[char].tradeskills[tradeskillcache] = {};
 
-				for i = 1, numTradeSkills do
-					local skillName, skillType, numAvailable, isExpanded, altVerb, numSkillUps = GetTradeSkillInfo(i);
+					for i = 1, numTradeSkills do
+						local skillName, skillType, numAvailable, isExpanded, altVerb, numSkillUps = GetTradeSkillInfo(i);
 
-					if (skillType == 'header') then
-						header = skillName;
-					else
-						local temp = {};
-						temp.skillName = skillName;
-						temp.skillType = skillType;
-						temp.numAvailable = numAvailable;
-						temp.altVerb = altVerb;
-						temp.numSkillUps = numSkillUps;
+						if (skillType == 'header') then
+							header = skillName;
+						else
+							local temp = {};
+							temp.skillName = skillName;
+							temp.skillType = skillType;
+							temp.numAvailable = numAvailable;
+							temp.altVerb = altVerb;
+							temp.numSkillUps = numSkillUps;
 
-						if (Pulse.realm[realm].char[char].tradeskills[tradeskillName][header] == nil) then
-							Pulse.realm[realm].char[char].tradeskills[tradeskillName][header] = {};
+							if (Pulse.realm[realm].char[char].tradeskills[tradeskillcache][header] == nil) then
+								Pulse.realm[realm].char[char].tradeskills[tradeskillcache][header] = {};
+							end
+
+							tinsert(Pulse.realm[realm].char[char].tradeskills[tradeskillcache][header], temp);
 						end
-
-						tinsert(Pulse.realm[realm].char[char].tradeskills[tradeskillName][header], temp);
 					end
 				end
 			end
@@ -65,6 +75,6 @@ function updateTradeskills ()
 	end
 end
 
--- Need to figure out Enchanting
--- local numCrafts = GetNumCrafts();
--- print(numCrafts);
+function updateEnchanting ()
+	local numCrafts = GetNumCrafts();
+end

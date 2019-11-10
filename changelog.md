@@ -1,11 +1,20 @@
 Changelog
 =========
 
+v 3.2
+-----
+
+### Bugfixes
+* Fixed a bug where player data was not stored when not guilded.
+* Fixed a bug where tradeskills information sometimes was lost.
+
+
 v 3.1
----
+-----
 
 ### Bugfixes
 * Fixed a bug where guild information was not always stored.
+* Fixed a bug where tradeskills was not always stored.
 
 
 v 3
