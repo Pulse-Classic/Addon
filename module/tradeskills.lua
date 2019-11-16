@@ -77,4 +77,24 @@ end
 
 function updateEnchanting ()
 	local numCrafts = GetNumCrafts();
+
+	if (numCrafts ~= 0) then
+
+		if (Pulse.realm[realm].char[char].tradeskills == nil) then
+			Pulse.realm[realm].char[char].tradeskills = {};
+		end
+
+		Pulse.realm[realm].char[char].tradeskills['Enchanting'] = {};
+		Pulse.realm[realm].char[char].tradeskills['Enchanting']['Enchanting'] = {};
+		for i = 1, numCrafts do
+			local craftName, craftSubSpellName, craftType, numAvailable, isExpanded, trainingPointCost, requiredLevel = GetCraftInfo(i);
+
+			local temp = {};
+			temp.craftName = craftName;
+			temp.craftType = craftType;
+			temp.numAvailable = numAvailable;
+
+			tinsert(Pulse.realm[realm].char[char].tradeskills['Enchanting']['Enchanting'], temp);
+		end
+	end
 end

@@ -1,6 +1,13 @@
 Changelog
 =========
 
+v 4
+---
+
+### New Features
+* Added enchanting support.
+
+
 v 3.2
 -----
 

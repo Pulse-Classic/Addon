@@ -20,7 +20,7 @@ function initPulse ()
 		Pulse.realm[realm].char[char] = {};
 	end
 
-	Pulse.version = 3.2;
+	Pulse.version = 4;
 end
 
 frame:RegisterEvent('PLAYER_LOGIN');
