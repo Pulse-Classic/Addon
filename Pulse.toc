@@ -1,6 +1,6 @@
 ## Interface: 11302
 ## Title: Pulse
-## Version: 4
+## Version: 4.1
 ## Notes: Take the Pulse
 ## Author: Drogos
 ## SavedVariables: Pulse

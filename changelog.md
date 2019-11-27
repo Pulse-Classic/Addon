@@ -1,6 +1,13 @@
 Changelog
 =========
 
+v 4.1
+---
+
+### Bugfixes
+* Fixed a bug that caused non-enchanting skills to be listed as enchanting skills.
+
+
 v 4
 ---
 

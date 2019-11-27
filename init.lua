@@ -4,7 +4,7 @@ local realm = GetRealmName();
 local char = UnitName('player');
 
 function initPulse ()
-	if ((Pulse == nil) or (Pulse.version < 3)) then
+	if ((Pulse == nil) or (Pulse.version < 4.1)) then
 		Pulse = {};
 	end
 	if (Pulse.realm == nil) then
@@ -20,7 +20,7 @@ function initPulse ()
 		Pulse.realm[realm].char[char] = {};
 	end
 
-	Pulse.version = 4;
+	Pulse.version = 4.1;
 end
 
 frame:RegisterEvent('PLAYER_LOGIN');
@@ -60,7 +60,9 @@ frame:SetScript('OnEvent', function (self, event, ...)
 				saveTradeskills();
 			end
 			if (event == 'CRAFT_UPDATE') then
-				updateEnchanting();
+				if (GetCraftName() == 'Enchanting') then
+					updateEnchanting();
+				end
 			end
 			if (event == 'SPELLS_CHANGED') then
 				updateSpells();
