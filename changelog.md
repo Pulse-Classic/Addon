@@ -1,6 +1,13 @@
 Changelog
 =========
 
+v 4.2
+---
+
+### Bugfixes
+* Fixed a bug where bank bags went missing.
+
+
 v 4.1
 ---
 
