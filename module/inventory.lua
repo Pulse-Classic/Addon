@@ -13,26 +13,29 @@ function updateInventory (bagId)
 		bagName = 'Bank';
 	end
 
-	Pulse.realm[realm].char[char].inventory[bagId] = {};
-	Pulse.realm[realm].char[char].inventory[bagId].name = bagName;
-	Pulse.realm[realm].char[char].inventory[bagId].inventory = {};
-
 	local numSlots = GetContainerNumSlots(bagId);
-	for i = 1, numSlots do
-		local icon, itemCount, locked, quality, readable, lootable, itemLink, isFiltered, noValue, itemID = GetContainerItemInfo(bagId, i);
-		local temp = {};
-		temp.icon = icon;
-		temp.itemCount = itemCount;
-		temp.locked = locked;
-		temp.quality = quality;
-		temp.readable = readable;
-		temp.lootable = lootable;
-		temp.itemLink = itemLink;
-		temp.isFiltered = isFiltered;
-		temp.noValue = noValue;
-		temp.itemID = itemID;
 
-		tinsert(Pulse.realm[realm].char[char].inventory[bagId].inventory, temp);
+	if ((bagName ~= nil) and (numSlots > 0)) then
+		Pulse.realm[realm].char[char].inventory[bagId] = {};
+		Pulse.realm[realm].char[char].inventory[bagId].name = bagName;
+		Pulse.realm[realm].char[char].inventory[bagId].inventory = {};
+
+		for i = 1, numSlots do
+			local icon, itemCount, locked, quality, readable, lootable, itemLink, isFiltered, noValue, itemID = GetContainerItemInfo(bagId, i);
+			local temp = {};
+			temp.icon = icon;
+			temp.itemCount = itemCount;
+			temp.locked = locked;
+			temp.quality = quality;
+			temp.readable = readable;
+			temp.lootable = lootable;
+			temp.itemLink = itemLink;
+			temp.isFiltered = isFiltered;
+			temp.noValue = noValue;
+			temp.itemID = itemID;
+
+			tinsert(Pulse.realm[realm].char[char].inventory[bagId].inventory, temp);
+		end
 	end
 
 end
