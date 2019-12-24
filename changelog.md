@@ -1,6 +1,13 @@
 Changelog
 =========
 
+v 4.3
+---
+
+### New Features
+* Added keyring support.
+
+
 v 4.2
 ---
 

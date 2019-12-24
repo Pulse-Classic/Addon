@@ -12,6 +12,9 @@ function updateInventory (bagId)
 	if (bagId == -1) then
 		bagName = 'Bank';
 	end
+	if (bagId == -2) then
+		bagName = 'Keyring';
+	end
 
 	local numSlots = GetContainerNumSlots(bagId);
 
