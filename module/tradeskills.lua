@@ -55,12 +55,33 @@ function saveTradeskills ()
 						if (skillType == 'header') then
 							header = skillName;
 						else
+							local creates = GetTradeSkillItemLink(i);
+							local cooldown = GetTradeSkillCooldown(i);
+
 							local temp = {};
 							temp.skillName = skillName;
 							temp.skillType = skillType;
 							temp.numAvailable = numAvailable;
 							temp.altVerb = altVerb;
 							temp.numSkillUps = numSkillUps;
+							temp.creates = creates;
+							if (cooldown ~= nil) then
+								temp.cooldown = math.ceil(time() + cooldown);
+							end
+							temp.reagents = {};
+
+							local numReagents = GetTradeSkillNumReagents(i);
+							for j = 1, numReagents do
+								local reagentName, reagentTexture, reagentCount, playerReagentCount = GetTradeSkillReagentInfo(i, j);
+								local reagentLink = GetTradeSkillReagentItemLink(i, j);
+
+								local reagenttemp = {};
+								reagenttemp.reagentName = reagentName;
+								reagenttemp.reagentCount = reagentCount;
+								reagenttemp.reagentLink = reagentLink;
+
+								tinsert(temp.reagents, reagenttemp);
+							end
 
 							if (Pulse.realm[realm].char[char].tradeskills[tradeskillcache][header] == nil) then
 								Pulse.realm[realm].char[char].tradeskills[tradeskillcache][header] = {};
@@ -88,11 +109,27 @@ function updateEnchanting ()
 		Pulse.realm[realm].char[char].tradeskills['Enchanting']['Enchanting'] = {};
 		for i = 1, numCrafts do
 			local craftName, craftSubSpellName, craftType, numAvailable, isExpanded, trainingPointCost, requiredLevel = GetCraftInfo(i);
+			local creates = GetCraftItemLink(i);
 
 			local temp = {};
 			temp.craftName = craftName;
 			temp.craftType = craftType;
 			temp.numAvailable = numAvailable;
+			temp.creates = creates;
+			temp.reagents = {};
+
+			local numReagents = GetCraftNumReagents(i);
+			for j = 1, numReagents do
+				local reagentName, reagentTexture, reagentCount, playerReagentCount = GetCraftReagentInfo(i, j);
+				local reagentLink = GetCraftReagentItemLink(i, j);
+
+				local reagenttemp = {};
+				reagenttemp.reagentName = reagentName;
+				reagenttemp.reagentCount = reagentCount;
+				reagenttemp.reagentLink = reagentLink;
+
+				tinsert(temp.reagents, reagenttemp);
+			end
 
 			tinsert(Pulse.realm[realm].char[char].tradeskills['Enchanting']['Enchanting'], temp);
 		end

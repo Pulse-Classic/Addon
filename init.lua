@@ -4,7 +4,7 @@ local realm = GetRealmName();
 local char = UnitName('player');
 
 function initPulse ()
-	if ((Pulse == nil) or (Pulse.version < 4.1)) then
+	if ((Pulse == nil) or (Pulse.version < 5)) then
 		Pulse = {};
 	end
 	if (Pulse.realm == nil) then
@@ -20,7 +20,7 @@ function initPulse ()
 		Pulse.realm[realm].char[char] = {};
 	end
 
-	Pulse.version = 4.3;
+	Pulse.version = 5;
 end
 
 frame:RegisterEvent('PLAYER_LOGIN');

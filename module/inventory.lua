@@ -2,7 +2,7 @@
 local realm = GetRealmName();
 local char = UnitName('player');
 
-function updateInventory (bagId)
+function updateInventory (bagId, siblings)
 	if (Pulse.realm[realm].char[char].inventory == nil) then
 		Pulse.realm[realm].char[char].inventory = {};
 	end
@@ -41,4 +41,24 @@ function updateInventory (bagId)
 		end
 	end
 
+	-- Some times the bank does not seem to update.
+	-- And for good measure, update all when there is a change.
+	if (siblings == nil) then
+		if (bagId > 4 or bagId == -1) then
+			updateInventory(5, false);
+			updateInventory(6, false);
+			updateInventory(7, false);
+			updateInventory(8, false);
+			updateInventory(9, false);
+			updateInventory(10, false);
+			updateInventory(-1, false);
+		else
+			updateInventory(0, false);
+			updateInventory(1, false);
+			updateInventory(2, false);
+			updateInventory(3, false);
+			updateInventory(4, false);
+			updateInventory(-2, false);
+		end
+	end
 end

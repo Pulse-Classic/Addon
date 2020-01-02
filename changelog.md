@@ -1,6 +1,18 @@
 Changelog
 =========
 
+v 5
+---
+
+### Bugfixes
+* Fixed a bug where bags was not always updating.
+
+### New Features
+* Cooldowns for tradeskills.
+* Added link to the item a tradeskill creates.
+* Added reagents to tradeskills.
+
+
 v 4.3
 ---
 
