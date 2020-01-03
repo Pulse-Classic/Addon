@@ -1,6 +1,17 @@
 Changelog
 =========
 
+v 5.1
+-----
+
+### Bugfixes
+* Fixed a bug where bank went missing.
+
+### New Features
+* Added support for reputation.
+* Added support for equipment.
+
+
 v 5
 ---
 
@@ -14,21 +25,21 @@ v 5
 
 
 v 4.3
----
+-----
 
 ### New Features
 * Added keyring support.
 
 
 v 4.2
----
+-----
 
 ### Bugfixes
 * Fixed a bug where bank bags went missing.
 
 
 v 4.1
----
+-----
 
 ### Bugfixes
 * Fixed a bug that caused non-enchanting skills to be listed as enchanting skills.

@@ -1,6 +1,6 @@
 ## Interface: 11303
 ## Title: Pulse
-## Version: 5
+## Version: 5.1
 ## Notes: Take the Pulse
 ## Author: Drogos
 ## SavedVariables: Pulse
@@ -16,4 +16,5 @@ module\spells.lua
 module\talents.lua
 module\skills.lua
 module\character.lua
+module\reputation.lua
 pulse.lua

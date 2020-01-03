@@ -2,6 +2,7 @@
 local frame = CreateFrame('Frame');
 local realm = GetRealmName();
 local char = UnitName('player');
+local bank_visible = false;
 
 function initPulse ()
 	if ((Pulse == nil) or (Pulse.version < 5)) then
@@ -20,10 +21,11 @@ function initPulse ()
 		Pulse.realm[realm].char[char] = {};
 	end
 
-	Pulse.version = 5;
+	Pulse.version = 5.1;
 end
 
 frame:RegisterEvent('PLAYER_LOGIN');
+
 frame:SetScript('OnEvent', function (self, event, ...)
 	if (event == 'PLAYER_LOGIN') then
 
@@ -42,6 +44,10 @@ frame:SetScript('OnEvent', function (self, event, ...)
 		frame:RegisterEvent('PLAYER_UPDATE_RESTING');
 		frame:RegisterEvent('PLAYER_MONEY');
 		frame:RegisterEvent('GUILD_ROSTER_UPDATE');
+		frame:RegisterEvent('BANKFRAME_OPENED');
+		frame:RegisterEvent('BANKFRAME_CLOSED');
+		frame:RegisterEvent('UPDATE_FACTION');
+		frame:RegisterEvent('PLAYER_EQUIPMENT_CHANGED');
 
 		frame:SetScript('OnEvent', function (self, event, bagId)
 			if (event == 'BAG_UPDATE') then
@@ -84,6 +90,25 @@ frame:SetScript('OnEvent', function (self, event, ...)
 			end
 			if (event == 'GUILD_ROSTER_UPDATE') then
 				updateCharacter();
+			end
+			if (event == 'UPDATE_FACTION') then
+				updateReputation();
+			end
+			if (event == 'BANKFRAME_OPENED') then
+				bank_visible = true;
+			end
+			if (bank_visible == true and event == 'BANKFRAME_CLOSED') then
+				bank_visible = false;
+				updateInventory(-1);
+				updateInventory(5);
+				updateInventory(6);
+				updateInventory(7);
+				updateInventory(8);
+				updateInventory(9);
+				updateInventory(10);
+			end
+			if (event == 'PLAYER_EQUIPMENT_CHANGED') then
+				getEquipment();
 			end
 		end);
 

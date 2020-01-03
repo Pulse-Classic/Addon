@@ -31,3 +31,56 @@ function updateCharacter ()
 
 	Pulse.realm[realm].char[char].info.scanned = time();
 end
+
+function getEquipment ()
+	Pulse.realm[realm].char[char].equipment = {};
+	for i = 0, 19 do
+		local itemId = GetInventoryItemID('player', i);
+		local itemLink = GetInventoryItemLink('player', i);
+		local temp = {};
+		temp.itemLink = itemLink;
+		temp.itemId = itemId;
+
+		if (i == INVSLOT_AMMO) then
+			Pulse.realm[realm].char[char].equipment['ammo'] = temp;
+		elseif (i == INVSLOT_HEAD) then
+			Pulse.realm[realm].char[char].equipment['head'] = temp;
+		elseif (i == INVSLOT_NECK) then
+			Pulse.realm[realm].char[char].equipment['neck'] = temp;
+		elseif (i == INVSLOT_SHOULDER) then
+			Pulse.realm[realm].char[char].equipment['shoulder'] = temp;
+		elseif (i == INVSLOT_BODY) then
+			Pulse.realm[realm].char[char].equipment['shirt'] = temp;
+		elseif (i == INVSLOT_CHEST) then
+			Pulse.realm[realm].char[char].equipment['chest'] = temp;
+		elseif (i == INVSLOT_WAIST) then
+			Pulse.realm[realm].char[char].equipment['waist'] = temp;
+		elseif (i == INVSLOT_LEGS) then
+			Pulse.realm[realm].char[char].equipment['legs'] = temp;
+		elseif (i == INVSLOT_FEET) then
+			Pulse.realm[realm].char[char].equipment['feet'] = temp;
+		elseif (i == INVSLOT_WRIST) then
+			Pulse.realm[realm].char[char].equipment['wrist'] = temp;
+		elseif (i == INVSLOT_HAND) then
+			Pulse.realm[realm].char[char].equipment['hand'] = temp;
+		elseif (i == INVSLOT_FINGER1) then
+			Pulse.realm[realm].char[char].equipment['finger1'] = temp;
+		elseif (i == INVSLOT_FINGER2) then
+			Pulse.realm[realm].char[char].equipment['finger2'] = temp;
+		elseif (i == INVSLOT_TRINKET1) then
+			Pulse.realm[realm].char[char].equipment['trinket1'] = temp;
+		elseif (i == INVSLOT_TRINKET2) then
+			Pulse.realm[realm].char[char].equipment['trinket2'] = temp;
+		elseif (i == INVSLOT_BACK) then
+			Pulse.realm[realm].char[char].equipment['back'] = temp;
+		elseif (i == INVSLOT_MAINHAND) then
+			Pulse.realm[realm].char[char].equipment['mainhand'] = temp;
+		elseif (i == INVSLOT_OFFHAND) then
+			Pulse.realm[realm].char[char].equipment['offhand'] = temp;
+		elseif (i == INVSLOT_RANGED) then
+			Pulse.realm[realm].char[char].equipment['ranged'] = temp;
+		elseif (i == INVSLOT_TABARD) then
+			Pulse.realm[realm].char[char].equipment['tabard'] = temp;
+		end
+	end
+end
