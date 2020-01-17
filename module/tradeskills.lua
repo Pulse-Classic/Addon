@@ -1,15 +1,16 @@
 
 local realm = GetRealmName();
 local char = UnitName('player');
+local _, ns = ...;
 
 local tradeskillcache = nil;
 
-function loadTradeskills ()
+function ns:loadTradeskills ()
 	local tradeskillName, currentLevel, maxLevel = GetTradeSkillLine();
 	tradeskillcache = tradeskillName;
 end
 
-function saveTradeskills ()
+function ns:saveTradeskills ()
 
 	local hasFilter = false;
 
@@ -96,7 +97,7 @@ function saveTradeskills ()
 	end
 end
 
-function updateEnchanting ()
+function ns:updateEnchanting ()
 	local numCrafts = GetNumCrafts();
 
 	if (numCrafts ~= 0) then

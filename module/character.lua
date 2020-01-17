@@ -1,8 +1,9 @@
 
 local realm = GetRealmName();
 local char = UnitName('player');
+local _, ns = ...;
 
-function updateCharacter ()
+function ns:updateCharacter ()
 	Pulse.realm[realm].char[char].info = {};
 
 	Pulse.realm[realm].char[char].info.name = UnitName('player');
@@ -32,7 +33,15 @@ function updateCharacter ()
 	Pulse.realm[realm].char[char].info.scanned = time();
 end
 
-function getEquipment ()
+function ns:updateLocation ()
+	if (Pulse.realm[realm].char[char].info ~= nil) then
+		local zoneName = GetRealZoneText();
+		Pulse.realm[realm].char[char].info.location = {};
+		Pulse.realm[realm].char[char].info.location.name = zoneName;
+	end
+end
+
+function ns:getEquipment ()
 	Pulse.realm[realm].char[char].equipment = {};
 	for i = 0, 19 do
 		local itemId = GetInventoryItemID('player', i);

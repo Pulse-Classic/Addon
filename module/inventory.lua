@@ -1,8 +1,9 @@
 
 local realm = GetRealmName();
 local char = UnitName('player');
+local _, ns = ...;
 
-function updateInventory (bagId)
+function ns:updateInventory (bagId)
 	if (Pulse.realm[realm].char[char].inventory == nil) then
 		Pulse.realm[realm].char[char].inventory = {};
 	end

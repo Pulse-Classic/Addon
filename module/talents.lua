@@ -1,8 +1,9 @@
 
 local realm = GetRealmName();
 local char = UnitName('player');
+local _, ns = ...;
 
-function updateTalents ()
+function ns:updateTalents ()
 	Pulse.realm[realm].char[char].talents = {};
 
 	local numTabs = GetNumTalentTabs();

@@ -1,8 +1,9 @@
 
 local realm = GetRealmName();
 local char = UnitName('player');
+local _, ns = ...;
 
-function updateSkills ()
+function ns:updateSkills ()
 	local hasFilter = false;
 
 	local numSkills = GetNumSkillLines();

@@ -1,6 +1,22 @@
 Changelog
 =========
 
+v 5.2
+-----
+
+### Bugfixes
+* Fixed a bug where bank went missing.
+
+### New Features
+* Added support equipment.
+* Added support mail.
+* Added support character location.
+
+### Core
+* Namespaced functions.
+* Removed the unused dkp function.
+
+
 v 5.1
 -----
 

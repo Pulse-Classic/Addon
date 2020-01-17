@@ -1,8 +1,9 @@
 
 local realm = GetRealmName();
 local char = UnitName('player');
+local _, ns = ...;
 
-function updateQuests ()
+function ns:updateQuests ()
 	Pulse.realm[realm].char[char].quests = {};
 	Pulse.realm[realm].char[char].quests.active = {};
 

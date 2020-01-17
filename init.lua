@@ -3,8 +3,9 @@ local frame = CreateFrame('Frame');
 local realm = GetRealmName();
 local char = UnitName('player');
 local bank_visible = false;
+local _, ns = ...;
 
-function initPulse ()
+function ns:init ()
 	if ((Pulse == nil) or (Pulse.version < 5)) then
 		Pulse = {};
 	end
@@ -21,7 +22,7 @@ function initPulse ()
 		Pulse.realm[realm].char[char] = {};
 	end
 
-	Pulse.version = 5.1;
+	Pulse.version = 5.2;
 end
 
 frame:RegisterEvent('PLAYER_LOGIN');
@@ -29,12 +30,12 @@ frame:RegisterEvent('PLAYER_LOGIN');
 frame:SetScript('OnEvent', function (self, event, ...)
 	if (event == 'PLAYER_LOGIN') then
 
-		initPulse();
+		ns:init();
 
 		frame:RegisterEvent('BAG_UPDATE');
 		frame:RegisterEvent('ITEM_UNLOCKED');
 		frame:RegisterEvent('QUEST_LOG_UPDATE');
-		frame:RegisterEvent('TRADE_SKILL_SHOW');
+		frame:RegisterEvent('TRADE_SKILL_UPDATE');
 		frame:RegisterEvent('TRADE_SKILL_CLOSE');
 		frame:RegisterEvent('CRAFT_UPDATE');
 		frame:RegisterEvent('SPELLS_CHANGED');
@@ -48,71 +49,81 @@ frame:SetScript('OnEvent', function (self, event, ...)
 		frame:RegisterEvent('BANKFRAME_CLOSED');
 		frame:RegisterEvent('UPDATE_FACTION');
 		frame:RegisterEvent('PLAYER_EQUIPMENT_CHANGED');
+		frame:RegisterEvent('MAIL_INBOX_UPDATE');
+		frame:RegisterEvent('PLAYER_LEAVING_WORLD');
 
 		frame:SetScript('OnEvent', function (self, event, bagId)
 			if (event == 'BAG_UPDATE') then
-				updateInventory(bagId);
+				ns:updateInventory(bagId);
 			end
 			if (event == 'ITEM_UNLOCKED') then
-				updateInventory(bagId);
+				ns:updateInventory(bagId);
 			end
 			if (event == 'QUEST_LOG_UPDATE') then
-				updateQuests();
+				ns:updateQuests();
 			end
-			if (event == 'TRADE_SKILL_SHOW') then
-				loadTradeskills();
+			if (event == 'TRADE_SKILL_UPDATE') then
+				ns:loadTradeskills();
 			end
 			if (event == 'TRADE_SKILL_CLOSE') then
-				saveTradeskills();
+				ns:saveTradeskills();
 			end
 			if (event == 'CRAFT_UPDATE') then
 				if (GetCraftName() == 'Enchanting') then
-					updateEnchanting();
+					ns:updateEnchanting();
 				end
 			end
 			if (event == 'SPELLS_CHANGED') then
-				updateSpells();
+				ns:updateSpells();
 			end
 			if (event == 'CHARACTER_POINTS_CHANGED') then
-				updateTalents();
+				ns:updateTalents();
 			end
 			if (event == 'SKILL_LINES_CHANGED') then
-				updateSkills();
+				ns:updateSkills();
 			end
 			if (event == 'PLAYER_XP_UPDATE') then
-				updateCharacter();
+				ns:updateCharacter();
 			end
 			if (event == 'PLAYER_UPDATE_RESTING') then
-				updateCharacter();
+				ns:updateCharacter();
 			end
 			if (event == 'PLAYER_MONEY') then
-				updateCharacter();
+				ns:updateCharacter();
 			end
 			if (event == 'GUILD_ROSTER_UPDATE') then
-				updateCharacter();
+				ns:updateCharacter();
+			end
+			if (event == 'PLAYER_LEAVING_WORLD') then
+				ns:updateLocation();
 			end
 			if (event == 'UPDATE_FACTION') then
-				updateReputation();
+				ns:updateReputation();
 			end
 			if (event == 'BANKFRAME_OPENED') then
 				bank_visible = true;
 			end
 			if (bank_visible == true and event == 'BANKFRAME_CLOSED') then
 				bank_visible = false;
-				updateInventory(-1);
-				updateInventory(5);
-				updateInventory(6);
-				updateInventory(7);
-				updateInventory(8);
-				updateInventory(9);
-				updateInventory(10);
+				ns:updateInventory(-1);
+				ns:updateInventory(5);
+				ns:updateInventory(6);
+				ns:updateInventory(7);
+				ns:updateInventory(8);
+				ns:updateInventory(9);
+				ns:updateInventory(10);
 			end
 			if (event == 'PLAYER_EQUIPMENT_CHANGED') then
-				getEquipment();
+				ns:getEquipment();
+			end
+			if (event == 'MAIL_INBOX_UPDATE') then
+				ns:checkMail();
 			end
 		end);
 
-		updateTalents();
-		updateSkills();
+		ns:updateTalents();
+		ns:updateSkills();
+		ns:updateCharacter();
+		ns:getEquipment();
 	end
 end);

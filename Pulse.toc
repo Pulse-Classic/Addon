@@ -1,14 +1,12 @@
 ## Interface: 11303
 ## Title: Pulse
-## Version: 5.1
+## Version: 5.2
 ## Notes: Take the Pulse
 ## Author: Drogos
 ## SavedVariables: Pulse
 ## DefaultState: enabled
 
-plugin\textbox.lua
 init.lua
-module\dkp.lua
 module\inventory.lua
 module\quests.lua
 module\tradeskills.lua
@@ -17,4 +15,5 @@ module\talents.lua
 module\skills.lua
 module\character.lua
 module\reputation.lua
+module\mail.lua
 pulse.lua

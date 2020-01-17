@@ -1,8 +1,9 @@
 
 local realm = GetRealmName();
 local char = UnitName('player');
+local _, ns = ...;
 
-function updateSpells ()
+function ns:updateSpells ()
 	Pulse.realm[realm].char[char].spells = {};
 
 	i = 1;
