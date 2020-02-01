@@ -22,7 +22,13 @@ function ns:init ()
 		Pulse.realm[realm].char[char] = {};
 	end
 
-	Pulse.version = 5.2;
+	if (Pulse.version < 5.3) then
+		for k in pairs(Pulse.realm[realm].char) do
+			Pulse.realm[realm].char[k].talents = {};
+		end
+	end
+
+	Pulse.version = 5.3;
 end
 
 frame:RegisterEvent('PLAYER_LOGIN');

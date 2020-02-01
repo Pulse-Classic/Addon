@@ -1,6 +1,15 @@
 Changelog
 =========
 
+
+v 5.3
+-----
+
+### New Features
+* Added talent groups.
+* Now removes unlearned tradeskills.
+
+
 v 5.2
 -----
 
