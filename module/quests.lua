@@ -17,6 +17,7 @@ function ns:updateQuests ()
 		if (isHeader) then
 			location = title;
 		else
+			local numQuestLogLeaderBoards = GetNumQuestLeaderBoards(i);
 			local temp = {};
 			temp.location = location;
 			temp.title = title;
@@ -32,6 +33,15 @@ function ns:updateQuests ()
 			temp.hasLocalPOI = hasLocalPOI;
 			temp.isTask = isTask;
 			temp.isStory = isStory;
+			temp.objectives = {};
+			for j = 1, numQuestLogLeaderBoards do
+				local description, objectiveType, isCompleted = GetQuestLogLeaderBoard(j, i);
+				local subtemp = {};
+				subtemp.description = description;
+				subtemp.objectiveType = objectiveType;
+				subtemp.isCompleted = isCompleted;
+				tinsert(temp.objectives, subtemp);
+			end
 			tinsert(Pulse.realm[realm].char[char].quests.active, temp);
 		end
 

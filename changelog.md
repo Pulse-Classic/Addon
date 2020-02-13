@@ -1,6 +1,20 @@
 Changelog
 =========
 
+v 5.5
+-----
+
+### New Features
+* Added quest objectives tracking.
+* Added item cooldown.
+
+
+v 5.4
+-----
+
+### Bugfixes
+* Fixed a bug where older versions could not update, and new installs did not work.
+
 
 v 5.3
 -----

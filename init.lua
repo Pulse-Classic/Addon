@@ -6,8 +6,15 @@ local bank_visible = false;
 local _, ns = ...;
 
 function ns:init ()
-	if ((Pulse == nil) or (Pulse.version < 5)) then
+	if (Pulse == nil) then
 		Pulse = {};
+	end
+	if (Pulse.version == nil) then
+		Pulse.version = 0;
+	end
+	if (Pulse.version < 5) then
+		Pulse = {};
+		Pulse.version = 0;
 	end
 	if (Pulse.realm == nil) then
 		Pulse.realm = {};
@@ -28,7 +35,7 @@ function ns:init ()
 		end
 	end
 
-	Pulse.version = 5.3;
+	Pulse.version = 5.5;
 end
 
 frame:RegisterEvent('PLAYER_LOGIN');
@@ -102,6 +109,11 @@ frame:SetScript('OnEvent', function (self, event, ...)
 			end
 			if (event == 'PLAYER_LEAVING_WORLD') then
 				ns:updateLocation();
+				ns:updateInventory(0);
+				ns:updateInventory(1);
+				ns:updateInventory(2);
+				ns:updateInventory(3);
+				ns:updateInventory(4);
 			end
 			if (event == 'UPDATE_FACTION') then
 				ns:updateReputation();
